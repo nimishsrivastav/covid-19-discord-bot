@@ -23,7 +23,7 @@ client.on('message', async (msg) => {
     msg.channel.send(`Hi! Thanks for adding this bot to your server!\nAs we all are battling this horrid disease, we must take care of ourselves and the ones near us.\nFor more details on COVID-19 and precautions to be taken, please visit ${WHO_URL}.\nStay Safe! 😷`);
 
     setTimeout(() => {
-      msg.channel.send(`Now, how to use this bot?\nThis bot give you information about the cases in the countries around the world, i.e., Confirmed Cases, Active Cases, Recoveries, Deaths. Just type '$covid' followed by country name as provided ('Slug' field) at ${COUNTRIES_JSON}`);
+      msg.channel.send(`Now, how to use this bot?\nThis bot provides you information about the cases in the countries around the world, i.e., Confirmed Cases, Active Cases, Recoveries, Deaths. Just type '$covid' followed by country name as provided ('Slug' field) at ${COUNTRIES_JSON}`);
     }, 3000);
   }
 })
