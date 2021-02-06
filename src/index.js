@@ -12,7 +12,7 @@ const COUNTRIES_JSON = 'https://api.covid19api.com/countries';
 const PREFIX = '$covid';
 const HELP = '$covid_help';
 
-const exampleEmbed = new Discord.MessageEmbed()
+const welcomeEmbed = new Discord.MessageEmbed()
 	.setColor('#c20000')
 	.setDescription(`Hi! Thanks for adding this bot to your server!
   As we all are battling this horrid disease, we must take care of ourselves and the ones near us.
@@ -32,7 +32,7 @@ client.on('message', async (msg) => {
   const content = msg.content.toLowerCase();
 
   if (content === HELP) {
-    msg.channel.send(exampleEmbed);
+    msg.channel.send(welcomeEmbed);
   }
 });
 
@@ -43,24 +43,35 @@ client.on('message', async (msg) => {
     try {
       if (content.length > 2) {
         msg.reply('Too many arguments!');
-        msg.reply(exampleEmbed);
+        msg.reply(welcomeEmbed);
       } else if (content.length === 1) {
         msg.reply('Not enough arguments!');
-        msg.reply(exampleEmbed);
+        msg.reply(welcomeEmbed);
       } else if (!countries[content[1]]) {
         msg.reply('Wrong country format!');
-        msg.reply(exampleEmbed);
+        msg.reply(welcomeEmbed);
       } else {
         const slug = content[1];
         const payload = await axios.get(`${url}${slug}`);
         const covidData = payload.data.pop();
-  
-        msg.reply(` below are the details:\nCountry: ${content[1].toUpperCase()}\nConfirmed: ${covidData.Confirmed}\nActive: ${covidData.Active}\nRecovered: ${covidData.Recovered}\nDeaths: ${covidData.Deaths}`);
-        msg.reply(exampleEmbed);
+        const dataEmbed = new Discord.MessageEmbed()
+        .setColor('#3dff33')
+        .setTitle(`${content[1].toUpperCase()}`)
+        .addFields(
+          { name: 'Confirmed Cases: ', value: `${covidData.Confirmed}` },
+          { name: 'Active Cases: ', value: `${covidData.Active}` },
+          { name: 'Recoveries: ', value: `${covidData.Recovered}` },
+          { name: 'Deaths: ', value: `${covidData.Deaths}` }
+        )
+        .setTimestamp();
+
+        msg.reply(` below are the details:`);
+        msg.reply(dataEmbed);
+        msg.reply(welcomeEmbed);
       }
     } catch (err) {
       msg.reply(`Data not available for select country. Please try again!`);
-      msg.reply(exampleEmbed);
+      msg.reply(welcomeEmbed);
     }
   }
 }); 
