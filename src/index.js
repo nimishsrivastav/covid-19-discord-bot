@@ -4,13 +4,13 @@ const { Client, Message } = require('discord.js');
 const client = new Client();
 
 const axios = require('axios');
-
 const countries = require("../countries.json");
+
 const url = 'https://api.covid19api.com/total/country/';
 const WHO_URL = 'https://www.who.int/emergencies/diseases/novel-coronavirus-2019';
+const COUNTRIES_JSON = 'https://api.covid19api.com/countries';
 const PREFIX = '$covid';
 const HELP = '$covid_help';
-const COUNTRIES_JSON = 'https://api.covid19api.com/countries';
 
 client.on('ready', () => {
   console.log(`${client.user.username} COVID bot has entered the server!`);
@@ -32,18 +32,22 @@ client.on('message', async (msg) => {
   const content = msg.content.toLowerCase().split(/\s+/);
 
   if (content[0] === PREFIX) {
-    if (content.length > 2) {
-      msg.reply('Too many arguments!');
-    } else if (content.length === 1) {
-      msg.reply('Not enough arguments!');
-    } else if (!countries[content[1]]) {
-      msg.reply('Wrong country format!');
-    } else {
-      const slug = content[1];
-      const payload = await axios.get(`${url}${slug}`);
-      const covidData = payload.data.pop();
-
-      msg.reply(` below are the details:\nCountry: ${content[1].toUpperCase()}\nConfirmed: ${covidData.Confirmed}\nActive: ${covidData.Active}\nRecovered: ${covidData.Recovered}\nDeaths: ${covidData.Deaths}`);
+    try {
+      if (content.length > 2) {
+        msg.reply('Too many arguments!');
+      } else if (content.length === 1) {
+        msg.reply('Not enough arguments!');
+      } else if (!countries[content[1]]) {
+        msg.reply('Wrong country format!');
+      } else {
+        const slug = content[1];
+        const payload = await axios.get(`${url}${slug}`);
+        const covidData = payload.data.pop();
+  
+        msg.reply(` below are the details:\nCountry: ${content[1].toUpperCase()}\nConfirmed: ${covidData.Confirmed}\nActive: ${covidData.Active}\nRecovered: ${covidData.Recovered}\nDeaths: ${covidData.Deaths}`);
+      }
+    } catch (err) {
+      msg.reply(`Data not available for select country. Please try again!`);
     }
   }
 }); 
