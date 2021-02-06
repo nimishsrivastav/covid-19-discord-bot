@@ -21,7 +21,7 @@ const exampleEmbed = new Discord.MessageEmbed()
   
   Now, how to use this bot?
   This bot provides you information about the cases in the countries around the world, i.e., Confirmed Cases, Active Cases, Recoveries, Deaths.
-  Just type '$covid' followed by country name as provided ('Slug' field) at ${COUNTRIES_JSON}.`)
+  Just type '$covid' followed by country name as provided in 'Slug' field at ${COUNTRIES_JSON}.`)
 	.setTimestamp();
 
 client.on('ready', () => {
