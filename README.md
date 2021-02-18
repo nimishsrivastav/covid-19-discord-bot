@@ -15,7 +15,7 @@
 ### Development in this bot
   Make sure that you have Node.js installed on your system. Download the Git repository and run following commands:
   
-  * _npm init_ : To install necessary node packages.
+  * _npm install_ : To install necessary node packages.
   * _npm run start_ : To fire up the bot locally.
   
 That's it! Now you can modify the bot as required and play around with it!
