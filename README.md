@@ -1,5 +1,5 @@
 # COVID-19 DISCORD BOT
-  This is informational bot created using Discord.JS on Node.JS platform. You can view total number of cases, active cases, recoveries, deaths from any country you want!
+  This is an informational bot created using Discord.JS on Node.JS platform. You can view total number of cases, active cases, recoveries, deaths from any country you want!
   This bot is deployed using Heroku.
   
 ### How to use it?
